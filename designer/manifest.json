@@ -1,0 +1,33 @@
+{
+  "name": "Responsive Paper Designer Tools",
+  "version": "1.0.0",
+  "description": "Allows web developers to test html to pdf conversion using the responsive paper designer css and conversion service",
+  "manifest_version": 2,
+  "background": {
+    "page": "background.html"
+  },
+  "options_page": "options/index.html",
+  "commands": {
+    "rp-preview": {
+      "suggested_key": {
+        "default": "Alt+K"
+      },
+      "description": "Run preview to new tab"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "permissions": [
+    "tabs",
+    "bookmarks",
+    "contextMenus",
+    "notifications",
+    "storage",
+    "https://responsivepaper.com/",
+    "unlimitedStorage",
+    "<all_urls>"
+  ]
+}
