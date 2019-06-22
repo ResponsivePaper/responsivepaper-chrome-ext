@@ -4,17 +4,17 @@
   "description": "Allows web developers to test html to pdf conversion using the responsive paper designer css and conversion service",
   "manifest_version": 2,
   "background": {
-    "page": "background.html"
+    "scripts": [
+      "background/utils.js",
+      "background/urls.js",
+      "background/browseraction.js",
+      "background/contextmenu.js",
+      "background/options.js",
+      "background/listeners.js",
+      "background/init.js"
+    ]
   },
   "options_page": "options/index.html",
-  "commands": {
-    "rp-preview": {
-      "suggested_key": {
-        "default": "Alt+K"
-      },
-      "description": "Run preview to new tab"
-    }
-  },
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",
