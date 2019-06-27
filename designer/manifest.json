@@ -8,13 +8,20 @@
       "background/utils.js",
       "background/urls.js",
       "background/browseraction.js",
-      "background/contextmenu.js",
       "background/options.js",
       "background/listeners.js",
       "background/init.js"
     ]
   },
   "options_page": "options/index.html",
+  "browser_action": {
+    "default_icon": {
+      "19": "images/rp.png",
+      "38": "images/rp-2x.png"
+    },
+    "default_title": "Responsive Paper Designer",
+    "default_popup": "browseraction/index.html"
+  },
   "icons": {
     "16": "images/icon16.png",
     "48": "images/icon48.png",
@@ -23,8 +30,6 @@
   "permissions": [
     "tabs",
     "bookmarks",
-    "contextMenus",
-    "notifications",
     "storage",
     "https://responsivepaper.com/",
     "unlimitedStorage",

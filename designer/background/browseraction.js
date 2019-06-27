@@ -1,22 +1,22 @@
 // Update the extension browser action
 var BrowserAction = {
-  init: function() {
+  init: function () {
     // Track when the browser action closes to do cleanup on the current page
-    chrome.runtime.onConnect.addListener(function(port) {
+    chrome.runtime.onConnect.addListener(function (port) {
       if (port.name === "browserAction") {
         var activeTab;
 
-        port.onMessage.addListener(function(message) {
+        port.onMessage.addListener(function (message) {
           if (message.name === "activeTab") {
             activeTab = message.tab;
           }
         });
 
-        port.onDisconnect.addListener(function() {
+        port.onDisconnect.addListener(function () {
           if (activeTab) {
             chrome.tabs.sendRequest(activeTab.id, {
               name: 'resetPreview'
-            }, function(response){});
+            }, function (response) { });
           }
         });
       }
@@ -29,12 +29,12 @@ var BrowserAction = {
    *   - No CSS is applied to the current page
    * @param {object} tab The tab for which the browser action should be updated
    */
-  unhighlight: function(tab) {
+  unhighlight: function (tab) {
     chrome.browserAction.setIcon({
       tabId: tab.id,
       path: {
-        '19': 'images/css.png',
-        '38': 'images/css@2x.png'
+        '19': 'images/rp.png',
+        '38': 'images/rp-2x.png'
       }
     });
   },
@@ -45,46 +45,32 @@ var BrowserAction = {
    *   - CSS is applied to the current page
    * @param {object} tab The tab for which the browser action should be updated
    */
-  highlight: function(tab) {
+  highlight: function (tab) {
     chrome.browserAction.setIcon({
       tabId: tab.id,
       path: {
-        '19': 'images/css_highlighted.png',
-        '38': 'images/css_highlighted@2x.png'
+        '19': 'images/rp-active.png',
+        '38': 'images/rp-active-2x.png'
       }
     });
   },
 
-  /**
-   * Update browser action for the specified tab to indicate:
-   *   - stylebot is visible
-   * @param {object} tab The tab for which the browser action should be updated
-   */
-  activate: function(tab) {
-    chrome.browserAction.setIcon({
-      tabId: tab.id,
-      path: {
-        '19': 'images/css_active.png',
-        '38': 'images/css_active@2x.png'
-      }
-    });
-  },
+
 
   /**
    * Update the browser action for the specified tab.
    * @param {Object} tab The tab for which to update the browser action.
    */
-  update: function(tab) {
+  update: function (tab) {
     if (tab.url.isValidUrl()) {
       var response = cache.loadingTabs[tab.id];
-      var stylingApplied = false;
+      var rpApplied = false;
 
-      if (response && (response.rules ||
-         (response.global && !isEmptyObject(response.global)))) {
-        stylingApplied = true;
+      if (response && response.enabled) {
+        rpApplied = true;
       }
 
-      if (stylingApplied) {
+      if (rpApplied) {
         BrowserAction.highlight(tab);
       } else {
         BrowserAction.unhighlight(tab);
@@ -94,7 +80,7 @@ var BrowserAction = {
     }
   },
 
-  disable: function(tabId) {
+  disable: function (tabId) {
     chrome.browserAction.disable(tabId);
   }
 }
